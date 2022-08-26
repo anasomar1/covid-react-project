@@ -6,7 +6,7 @@ import { TbArrowsSort } from "react-icons/tb";
 type SortKey = keyof Country;
 type TableHeaders = {
   key: SortKey;
-  header: Country["Country"];
+  title: Country["Country"];
 }[];
 
 const CountriesStatistics = ({
@@ -20,19 +20,19 @@ const CountriesStatistics = ({
   const tableHeaders: TableHeaders = [
     {
       key: "Country",
-      header: "Country",
+      title: "Country",
     },
     {
       key: "TotalConfirmed",
-      header: "Total Confirmed",
+      title: "Total Confirmed",
     },
     {
       key: "TotalDeaths",
-      header: "Total Deaths",
+      title: "Total Deaths",
     },
     {
       key: "TotalRecovered",
-      header: "Total Recovered",
+      title: "Total Recovered",
     },
   ];
 
@@ -90,7 +90,7 @@ const CountriesStatistics = ({
                 className={styles.tableHeader}
                 onClick={() => updateSort(header.key)}
               >
-                {header.key}
+                {header.title}
                 <TbArrowsSort className={styles.sortIcon} />
               </th>
             ))}
