@@ -86,19 +86,19 @@ const CountriesStatistics = ({
         <thead>
           <tr>
             {tableHeaders.map((header) => (
-              <th className={styles.tableBox}>
+              <th
+                className={styles.tableHeader}
+                onClick={() => updateSort(header.key)}
+              >
                 {header.key}
-                <TbArrowsSort
-                  className={styles.sortIcon}
-                  onClick={() => updateSort(header.key)}
-                />
+                <TbArrowsSort className={styles.sortIcon} />
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
           {sortedCountries().map((country: Country) => (
-            <tr key={country.ID}>
+            <tr key={country.ID} className={styles.tableRow}>
               <td className={styles.tableBox}>{country.Country}</td>
               <td className={styles.tableBox}>{country.TotalConfirmed}</td>
               <td className={styles.tableBox}>{country.TotalDeaths}</td>
