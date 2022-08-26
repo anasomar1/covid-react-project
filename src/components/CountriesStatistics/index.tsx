@@ -1,7 +1,13 @@
-import React, { ReactElement, useState, useEffect } from "react";
+import React, { ReactElement, useState, useEffect, useCallback } from "react";
 import type { Country } from "../../App";
 import styles from "./styles.module.css";
 import { TbArrowsSort } from "react-icons/tb";
+
+type SortKey = keyof Country;
+type TableHeaders = {
+  key: SortKey;
+  header: Country["Country"];
+}[];
 
 const CountriesStatistics = ({
   countries,
@@ -10,7 +16,25 @@ const CountriesStatistics = ({
 }): ReactElement => {
   const [filteredCountries, setFilteredCountries] = useState(countries);
   const [sortOrder, setSortOrder] = useState<"ASC" | "DSC">("ASC");
-  const [sortKey, setSortKey] = useState<keyof Country>("Country");
+  const [sortKey, setSortKey] = useState<SortKey>("Country");
+  const tableHeaders: TableHeaders = [
+    {
+      key: "Country",
+      header: "Country",
+    },
+    {
+      key: "TotalConfirmed",
+      header: "Total Confirmed",
+    },
+    {
+      key: "TotalDeaths",
+      header: "Total Deaths",
+    },
+    {
+      key: "TotalRecovered",
+      header: "Total Recovered",
+    },
+  ];
 
   const searchCountries = (countryName: string): void => {
     setFilteredCountries(
@@ -18,23 +42,26 @@ const CountriesStatistics = ({
         country.Country.toLowerCase().match(countryName)
       )
     );
-    sortCountries(sortKey);
   };
 
-  const sortCountries = (column: keyof Country): void => {
-    const isAscending = sortOrder === "ASC";
-    setFilteredCountries((prev) =>
-      [...prev].sort((a, b) =>
-        a[column] < b[column] ? (isAscending ? 1 : -1) : isAscending ? -1 : 1
-      )
-    );
-    setSortOrder(isAscending ? "DSC" : "ASC");
+  const sortCountries = (
+    data: Country[],
+    sortKey: SortKey,
+    isReversed: boolean
+  ) => {
+    const sortedData = data.sort((a, b) => (a[sortKey] > b[sortKey] ? 1 : -1));
+    return isReversed ? [...sortedData].reverse() : sortedData;
   };
 
-  const updateSortKey = (key: keyof Country) => {
+  const updateSort = (key: SortKey) => {
+    setSortOrder(sortOrder === "ASC" ? "DSC" : "ASC");
     setSortKey(key);
-    sortCountries(key);
   };
+
+  const sortedCountries = useCallback(
+    () => sortCountries(filteredCountries, sortKey, sortOrder === "DSC"),
+    [filteredCountries, sortKey, sortOrder]
+  );
 
   useEffect(() => {
     setFilteredCountries(countries);
@@ -58,38 +85,19 @@ const CountriesStatistics = ({
       <table className={styles.table}>
         <thead>
           <tr>
-            <th className={styles.tableBox}>
-              Country
-              <TbArrowsSort
-                className={styles.sortIcon}
-                onClick={() => updateSortKey("Country")}
-              />
-            </th>
-            <th className={styles.tableBox}>
-              Total Cases
-              <TbArrowsSort
-                className={styles.sortIcon}
-                onClick={() => updateSortKey("TotalConfirmed")}
-              />
-            </th>
-            <th className={styles.tableBox}>
-              Total Deaths
-              <TbArrowsSort
-                className={styles.sortIcon}
-                onClick={() => updateSortKey("TotalDeaths")}
-              />
-            </th>
-            <th className={styles.tableBox}>
-              Total Recovered
-              <TbArrowsSort
-                className={styles.sortIcon}
-                onClick={() => updateSortKey("TotalRecovered")}
-              />
-            </th>
+            {tableHeaders.map((header) => (
+              <th className={styles.tableBox}>
+                {header.key}
+                <TbArrowsSort
+                  className={styles.sortIcon}
+                  onClick={() => updateSort(header.key)}
+                />
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          {filteredCountries.map((country: Country) => (
+          {sortedCountries().map((country: Country) => (
             <tr key={country.ID}>
               <td className={styles.tableBox}>{country.Country}</td>
               <td className={styles.tableBox}>{country.TotalConfirmed}</td>
