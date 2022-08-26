@@ -5,3 +5,6 @@ Install packages by running
 
 Then run the project using
 `npm start`
+
+Live website
+https://covid-19-tracker-api.netlify.app/

@@ -7,6 +7,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 62.5%;
 }
 
 .covid-app {
@@ -18,8 +19,27 @@ body {
 
 .covid-app h1 {
   color: rgb(131, 194, 38);
+  text-align: center;
 }
 
 .loading {
   text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    font-size: 70%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  body {
+    font-size: 80%;
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  body {
+    font-size: 100%;
+  }
 }
