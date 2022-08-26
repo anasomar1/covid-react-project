@@ -1,0 +1,19 @@
+.stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.3rem;
+}
+
+.confirmed {
+  color: #1d1d1d;
+}
+
+.deaths {
+  color: #424242;
+}
+
+.recovered {
+  color: #4bfa77;
+}
