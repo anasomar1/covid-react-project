@@ -19,3 +19,7 @@ body {
 .covid-app h1 {
   color: rgb(131, 194, 38);
 }
+
+.loading {
+  text-align: center;
+}

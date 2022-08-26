@@ -1,0 +1,39 @@
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.tableBox {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 1rem;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.searchInput {
+  font-family: inherit;
+  padding: 0.75rem 0.5rem;
+  border-radius: 0.25rem;
+  margin-left: 0.5rem;
+  border: 0.5px solid #000;
+}
+
+.sortIcon {
+  margin-left: 0.2rem;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 1024px) {
+  .table {
+    min-width: 800px;
+  }
+  .search {
+    justify-content: flex-start;
+  }
+}

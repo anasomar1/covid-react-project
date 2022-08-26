@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import styles from "./styles.module.css";
 
 const GlobalStatistics = ({
@@ -17,7 +17,7 @@ const GlobalStatistics = ({
         <h3 className={styles.deaths}>{stats.TotalDeaths}</h3>
       </div>
       <div className={styles.stat}>
-        <h2>Coronavirus Recovries:</h2>
+        <h2>Coronavirus Recovered:</h2>
         <h3 className={styles.recovered}>{stats.TotalRecovered}</h3>
       </div>
     </div>
